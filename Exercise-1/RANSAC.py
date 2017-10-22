@@ -23,7 +23,6 @@ filename = 'voxel_downsampled.pcd'
 pcl.save(cloud_filtered, filename)
 
 # PassThrough filter
-# PassThrough filter
 # Create a PassThrough filter object.
 passthrough = cloud_filtered.make_passthrough_filter()
 

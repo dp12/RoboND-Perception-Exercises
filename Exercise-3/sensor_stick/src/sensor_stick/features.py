@@ -34,12 +34,18 @@ def compute_color_histograms(cloud, using_hsv=False):
         channel_3_vals.append(color[2])
     
     # TODO: Compute histograms
+    nbins = 32
+    bin_range = (0,256)
+    channel1_hist = np.histogram(channel_1_vals, bins=nbins, range=bin_range)
+    channel2_hist = np.histogram(channel_2_vals, bins=nbins, range=bin_range)
+    channel3_hist = np.histogram(channel_3_vals, bins=nbins, range=bin_range)
 
     # TODO: Concatenate and normalize the histograms
+    hist_features = np.concatenate((channel1_hist[0], channel2_hist[0], channel3_hist[0])).astype(np.float64)
 
     # Generate random features for demo mode.  
     # Replace normed_features with your feature vector
-    normed_features = np.random.random(96) 
+    normed_features = hist_features / np.sum(hist_features)
     return normed_features 
 
 
@@ -57,10 +63,17 @@ def compute_normal_histograms(normal_cloud):
 
     # TODO: Compute histograms of normal values (just like with color)
 
+    nbins = 32
+    bin_range = (0,256)
+    norm_x_hist = np.histogram(norm_x_vals, bins=nbins, range=bin_range)
+    norm_y_hist = np.histogram(norm_y_vals, bins=nbins, range=bin_range)
+    norm_z_hist = np.histogram(norm_z_vals, bins=nbins, range=bin_range)
+
     # TODO: Concatenate and normalize the histograms
+    hist_features = np.concatenate((norm_x_hist[0], norm_y_hist[0], norm_z_hist[0])).astype(np.float64)
 
     # Generate random features for demo mode.  
     # Replace normed_features with your feature vector
-    normed_features = np.random.random(96)
+    normed_features = hist_features / np.sum(hist_features)
 
     return normed_features
